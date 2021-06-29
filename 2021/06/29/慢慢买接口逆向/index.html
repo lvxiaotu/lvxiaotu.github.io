@@ -130,16 +130,16 @@
 
 	  <h1 id="慢慢买比价爬虫-JS-逆向破解"><a href="#慢慢买比价爬虫-JS-逆向破解" class="headerlink" title="慢慢买比价爬虫(JS 逆向破解)"></a>慢慢买比价爬虫(JS 逆向破解)</h1><p>项目中涉及到对淘宝，京东商品历史价格的数据采集，直接爬虫是获取不到历史数据的。需要借助第三方比价平台——<a target="_blank" rel="noopener" href="http://www.manmanbuy.com/">慢慢买</a>。慢慢买是全网比价平台，主要是通过实习爬取淘宝，京东，天猫等电扇购物平台，向用户提供多平台的商品价格比较。同时，慢慢买还提供历史价格查询的功能。作为一个爬虫平台，慢慢买在反爬虫上也是花费了不少心思。</p>
 <h2 id="Http抓包分析"><a href="#Http抓包分析" class="headerlink" title="Http抓包分析"></a>Http抓包分析</h2><p>首先，进入慢慢买历史价格查询平台，复制一个淘宝京东的链接进行查询。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114113250055.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114113250055.png" alt="image-20210114113250055"></a></p>
+<p><img src="https://ppsteven.github.io/assets/img/image-20210114113250055.bc20e109.png" alt="image-20210114113250055"></p>
 <p>通过 Chrome 自带的开发者工具-&gt;Network 进行http抓包分析</p>
 <ol>
 <li>首先找到价格数据，价格数据中一定有238</li>
 <li>搜索所有请求到的资源，查看哪些有238</li>
 <li>找到对应的请求</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114131939821.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114131939821.png" alt="image-20210114131939821"></a></p>
+<p><img src="https://ppsteven.github.io/assets/img/image-20210114131939821.21ac606d.png" alt="image-20210114131939821"></p>
 <h2 id="请求分析"><a href="#请求分析" class="headerlink" title="请求分析"></a>请求分析</h2><p>通过查看 <code>Requests Headers</code> 的头部信息，发现这是一个POST请求，只要把参数填入 <code>From data</code>即可。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114132139111.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114132139111.png" alt="image-20210114132139111"></a></p>
+<p><img src="https://ppsteven.github.io/assets/img/image-20210114132139111.dc8e2f61.png" alt="image-20210114132139111"></p>
 <ul>
 <li><p>请求地址：<a target="_blank" rel="noopener" href="http://tool.manmanbuy.com/api.ashx">http://tool.manmanbuy.com/api.ashx</a></p>
 </li>
@@ -193,8 +193,8 @@
 </blockquote>
 <h3 id="请求头提交的数据-Form-data"><a href="#请求头提交的数据-Form-data" class="headerlink" title="请求头提交的数据 (Form data)"></a>请求头提交的数据 (Form data)</h3><p>method 是固定的，key，t 分别是商品地址和时间戳。</p>
 <p><strong>难点是 token 字段的生成方式</strong></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114134237228.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114134237228.png" alt="image-20210114134237228"></a></p>
-<h3 id="请求头报文-Request-Header"><a href="#请求头报文-Request-Header" class="headerlink" title="请求头报文(Request Header)"></a>请求头报文(Request Header)</h3><p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114134630360.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114134630360.png" alt="image-20210114134630360"></a></p>
+<p><img src="https://ppsteven.github.io/assets/img/image-20210114134237228.66661c0a.png" alt="image-20210114134237228"></p>
+<h3 id="请求头报文-Request-Header"><a href="#请求头报文-Request-Header" class="headerlink" title="请求头报文(Request Header)"></a>请求头报文(Request Header)</h3><p><img src="https://ppsteven.github.io/assets/img/image-20210114134630360.609e95a7.png" alt="image-20210114134630360"></p>
 <p>请求头中 Authorization 代表的是 Web端 对访问用户身份的认证，这个知识点，在 <a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/pages/8e336c">08.确认访问用户身份的认证</a> 已经写过，Basic Auth 属于一种基本的认证方式，本质上就是通过 Base64 对账户密码进行编码后传输，编码可以通过Base64 反编码，所以本质上就是一种明文的传输方式。所以，我们可以尝试反编译一下。</p>
 <h4 id="反编译-Authorization"><a href="#反编译-Authorization" class="headerlink" title="反编译 Authorization"></a>反编译 Authorization</h4><h4 id="1-Python-实现-Base64-编码-解码"><a href="#1-Python-实现-Base64-编码-解码" class="headerlink" title="1. Python 实现 Base64 编码/解码"></a>1. Python 实现 Base64 编码/解码</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import base64</span><br><span class="line"></span><br><span class="line">def get_basic_auth_str(username, password):</span><br><span class="line">  temp_str = username + &#x27;:&#x27; + password</span><br><span class="line">  bytesString = temp_str.encode(encoding=&quot;utf-8&quot;)  # 转成bytes string</span><br><span class="line">  encodestr = base64.b64encode(bytesString)  # base64 编码</span><br><span class="line">  return &#x27;Basic &#x27; + encodestr.decode() </span><br><span class="line"></span><br><span class="line">def decode_basic_auth_str(auth_str):</span><br><span class="line">    bytesString = auth_str.encode(&quot;utf-8&quot;)</span><br><span class="line">    decode_str = base64.b64decode(bytesString)</span><br><span class="line">    return decode_str.decode(&quot;utf-8&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    auth_str = get_basic_auth_str(&#x27;Tom&#x27;, &#x27;test&#x27;) # Basic VG9tOnRlc3Q=</span><br><span class="line">    decode_str = decode_basic_auth_str(&#x27;VG9tOnRlc3Q=&#x27;) # Tom:test</span><br></pre></td></tr></table></figure>
 
@@ -202,7 +202,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from util import decode_basic_auth_str                                                                          </span><br><span class="line">&gt;&gt;&gt; decode_basic_auth_str(&#x27;D8DD2812A942776AF9ED750C2D6D7539BF204F7C0B0FB414E6CEBD28536A99D07304FA7BFFBB2BDD6B9B46823A9D19FA751316693F17DD79FF26D70E2EBA1BF31918AB09FC305FCFF5CC0120F0A255CA5D37BDC0EBFFB3CD&#x27;)   </span><br><span class="line">&gt;&gt;&gt; UnicodeDecodeError: &#x27;utf-8&#x27; codec can&#x27;t decode byte 0xc0 in position 1: invalid start byte</span><br></pre></td></tr></table></figure>
 
 <h4 id="2-在线Base编码-解码网站"><a href="#2-在线Base编码-解码网站" class="headerlink" title="2. 在线Base编码/解码网站"></a>2. 在线Base编码/解码网站</h4><p>通过在线编码解码网站也是发现全部都是乱码</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114142147404.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114142147404.png" alt="image-20210114142147404"></a></p>
+<p><img src="https://ppsteven.github.io/assets/img/image-20210114142147404.7511e221.png" alt="image-20210114142147404"></p>
 <h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><p>经过代码比较后，我们发现有两个字段无法解决</p>
 <ul>
 <li>Authorization 不是通过传统的 Basic64 加密的</li>
@@ -210,21 +210,21 @@
 </ul>
 <h2 id="JS代码分析"><a href="#JS代码分析" class="headerlink" title="JS代码分析"></a>JS代码分析</h2><p>知道了目标，就可以查看具体发送请求的地方，以及 Authorization 和 token 生成的逻辑。</p>
 <p>首先，查看 <code>/api.aspx</code> 是哪里发送出来的</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114145805844.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114145805844.png" alt="image-20210114145805844"></a></p>
+<p><img src="https://ppsteven.github.io/assets/img/image-20210114145805844.8dce3c08.png" alt="image-20210114145805844"></p>
 <p>然后，可以通过打上断点，查找发送数据的代码。但是这里并不是拼接数据的地方。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114150248508.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114150248508.png" alt="image-20210114150248508"></a></p>
+<p><img src="https://ppsteven.github.io/assets/img/image-20210114150248508.4b8ad279.png" alt="image-20210114150248508"></p>
 <p>在 Call Stack 调用栈中，不断的向上排查，最终找到拼接数据的地方，可以看出 ajaxpost 这里是真正拼接数据的地方。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114150718545.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114150718545.png" alt="image-20210114150718545"></a></p>
+<p><img src="https://ppsteven.github.io/assets/img/image-20210114150718545.6f8447d2.png" alt="image-20210114150718545"></p>
 <p>在调试中，找到了 <code>form data</code> 的数据</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114151327739.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114151327739.png" alt="image-20210114151327739"></a></p>
+<p><img src="https://ppsteven.github.io/assets/img/image-20210114151327739.edc32cf9.png" alt="image-20210114151327739"></p>
 <p>找到了数据后，才发现真正难的地方，这里的 JavaScript 代码都是经过加密的，由于不知道函数和变量的含义，去破解 token 和 Authorization 字段无从下手。</p>
 <p>如这段代码，变量名都是通过 <code>_0x365d()</code> 函数，加密过了，只要我们破解这个函数即可还原。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x27;success&#x27;: function(_0x4ce40a) &#123;</span><br><span class="line">    var _0x1c6814 = &#123;</span><br><span class="line">      &#x27;LrBHV&#x27;: _0x365d(&#x27;0x2e&#x27;, &#x27;OG@1&#x27;),</span><br><span class="line">      &#x27;nyVkE&#x27;: _0x365d(&#x27;0x2f&#x27;, &#x27;[0Fm&#x27;),</span><br><span class="line">      &#x27;qsLdn&#x27;: function _0x23683a(_0x46f029, _0x5eba10) &#123;</span><br><span class="line">        return _0x46f029(_0x5eba10);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    if (_0x365d(&#x27;0x30&#x27;, &#x27;BQd]&#x27;) !== _0x1c6814[_0x365d(&#x27;0x31&#x27;, &#x27;OG@1&#x27;)]) &#123;</span><br><span class="line">      w[c](_0x1c6814[_0x365d(&#x27;0x32&#x27;, &#x27;b8bF&#x27;)]);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      _0x3aca29 &amp;&amp; _0x1c6814[_0x365d(&#x27;0x33&#x27;, &#x27;xOX6&#x27;)](_0x3aca29, _0x4ce40a);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
 <p>下面我们看看这段加密代码，发现有70多行，手动破解太费劲了。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114152610556.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114152610556.png" alt="image-20210114152610556"></a></p>
+<p><img src="https://ppsteven.github.io/assets/img/image-20210114152610556.fa8a7403.png" alt="image-20210114152610556"></p>
 <p>而且通过 <code>encode_version</code> 发现，这是使用 jsjiami.com 做的加密。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114152900610.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114152900610.png" alt="image-20210114152900610"></a></p>
+<p><img src="https://ppsteven.github.io/assets/img/image-20210114152900610.6524e46f.png" alt="image-20210114152900610"></p>
 <p>首先，要先把 js 代码调试出来</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var window = undefined; // 因为 node.js 没有 window，可以先至为 undefined</span><br><span class="line">var encode_version = &#x27;jsjiami.com.v5&#x27;,</span><br><span class="line">	nljdj = &#x27;__0xa3e63&#x27;,</span><br><span class="line">	__0xa3e63 = [&#x27;TURrcMKg&#x27;, &#x27;bMKywoIHdw==&#x27;, ...];</span><br><span class="line">(function (_0x58a45a, _0x50ac96) &#123;...&#125;(__0xa3e63, 0x1dc));</span><br><span class="line">var _0x365d = function (_0x5ce1df, _0x37ef48) &#123;...&#125;;</span><br><span class="line">                                               </span><br><span class="line">console.log(_0x365d(&#x27;0x22&#x27;, &#x27;G7RY&#x27;)) //  输出 BasicAuth                                   </span><br></pre></td></tr></table></figure>
 

@@ -136,6 +136,66 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2021/06/29/慢慢买接口逆向/" >慢慢买接口逆向</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2021-06-29  </div>
+		</div>
+	</div>
+	
+
+
+			<!--
+<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="慢慢买比价爬虫-JS-逆向破解"><a href="#慢慢买比价爬虫-JS-逆向破解" class="headerlink" title="慢慢买比价爬虫(JS 逆向破解)"></a>慢慢买比价爬虫(JS 逆向破解)</h1><p>项目中涉及到对淘宝，京东商品历史价格的数据采集，直接爬虫是获取不到历史数据的。需要借助第三方比价平台——<a target="_blank" rel="noopener" href="http://www.manmanbuy.com/">慢慢买</a>。慢慢买是全网比价平台，主要是通过实习爬取淘宝，京东，天猫等电扇购物平台，向用户提供多平台的商品价格比较。同时，慢慢买还提供历史价格查询的功能。作为一个爬虫平台，慢慢买在反爬虫上也是花费了不少心思。</p>
+<h2 id="Http抓包分析"><a href="#Http抓包分析" class="headerlink" title="Http抓包分析"></a>Http抓包分析</h2><p>首先，进入慢慢买历史价格查询平台，复制一个淘宝京东的链接进行查询。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114113250055.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114113250055.png" alt="image-20210114113250055"></a></p>
+<p>通过 Chrome 自带的开发者工具-&gt;Network 进行http抓包分析</p>
+<ol>
+<li>首先找到价格数据，价格数据中一定有238</li>
+<li>搜索所有请求到的资源，查看哪些有238</li>
+<li>找到对应的请求</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114131939821.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114131939821.png" alt="image-20210114131939821"></a></p>
+<h2 id="请求分析"><a href="#请求分析" class="headerlink" title="请求分析"></a>请求分析</h2><p>通过查看 <code>Requests Headers</code> 的头部信息，发现这是一个POST请求，只要把参数填入 <code>From data</code>即可。</p>
+	
+
+	</div>
+  <a type="button" href="/2021/06/29/慢慢买接口逆向/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+-->
+<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="慢慢买比价爬虫-JS-逆向破解"><a href="#慢慢买比价爬虫-JS-逆向破解" class="headerlink" title="慢慢买比价爬虫(JS 逆向破解)"></a>慢慢买比价爬虫(JS 逆向破解)</h1><p>项目中涉及到对淘宝，京东商品历史价格的数据采集，直接爬虫是获取不到历史数据的。需要借助第三方比价平台——<a target="_blank" rel="noopener" href="http://www.manmanbuy.com/">慢慢买</a>。慢慢买是全网比价平台，主要是通过实习爬取淘宝，京东，天猫等电扇购物平台，向用户提供多平台的商品价格比较。同时，慢慢买还提供历史价格查询的功能。作为一个爬虫平台，慢慢买在反爬虫上也是花费了不少心思。</p>
+<h2 id="Http抓包分析"><a href="#Http抓包分析" class="headerlink" title="Http抓包分析"></a>Http抓包分析</h2><p>首先，进入慢慢买历史价格查询平台，复制一个淘宝京东的链接进行查询。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114113250055.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114113250055.png" alt="image-20210114113250055"></a></p>
+<p>通过 Chrome 自带的开发者工具-&gt;Network 进行http抓包分析</p>
+<ol>
+<li>首先找到价格数据，价格数据中一定有238</li>
+<li>搜索所有请求到的资源，查看哪些有238</li>
+<li>找到对应的请求</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114131939821.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114131939821.png" alt="image-20210114131939821"></a></p>
+<h2 id="请求分析"><a href="#请求分析" class="headerlink" title="请求分析"></a>请求分析</h2><p>通过查看 <code>Requests Headers</code> 的头部信息，发现这是一个POST请求，只要把参数填入 <code>From data</code>即可。</p>
+	
+	</div>
+  <a type="button" href="/2021/06/29/慢慢买接口逆向/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2021/06/28/2021-06-28/" >今日扯淡</a>
 		</h3>
 		</div>
@@ -379,6 +439,8 @@
 		
 			<li><a href="/tags/心情/">心情<span>1</span></a></li>
 		
+			<li><a href="/tags/js逆向/">js逆向<span>1</span></a></li>
+		
 		 
 		</ul>
 	</div>
@@ -389,6 +451,10 @@
 <div class="widget">
   <h4>最新文章</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2021/06/29/慢慢买接口逆向/" ><i class="fa fa-file-o"></i>慢慢买接口逆向</a>
+      </li>
     
       <li>
         <a href="/2021/06/28/2021-06-28/" ><i class="fa fa-file-o"></i>今日扯淡</a>

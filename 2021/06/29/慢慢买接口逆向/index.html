@@ -1,0 +1,428 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>慢慢买接口逆向 | 驴小秃的碎碎念</title>
+  <meta name="author" content="喜欢你的秃酱">
+  
+  <meta name="description" content="亨，王假有庙，利涉大川，利贞。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="慢慢买接口逆向"/>
+  <meta property="og:site_name" content="驴小秃的碎碎念"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70812759-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70812759-1');
+</script>
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">驴小秃的碎碎念</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 慢慢买接口逆向</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="慢慢买比价爬虫-JS-逆向破解"><a href="#慢慢买比价爬虫-JS-逆向破解" class="headerlink" title="慢慢买比价爬虫(JS 逆向破解)"></a>慢慢买比价爬虫(JS 逆向破解)</h1><p>项目中涉及到对淘宝，京东商品历史价格的数据采集，直接爬虫是获取不到历史数据的。需要借助第三方比价平台——<a target="_blank" rel="noopener" href="http://www.manmanbuy.com/">慢慢买</a>。慢慢买是全网比价平台，主要是通过实习爬取淘宝，京东，天猫等电扇购物平台，向用户提供多平台的商品价格比较。同时，慢慢买还提供历史价格查询的功能。作为一个爬虫平台，慢慢买在反爬虫上也是花费了不少心思。</p>
+<h2 id="Http抓包分析"><a href="#Http抓包分析" class="headerlink" title="Http抓包分析"></a>Http抓包分析</h2><p>首先，进入慢慢买历史价格查询平台，复制一个淘宝京东的链接进行查询。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114113250055.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114113250055.png" alt="image-20210114113250055"></a></p>
+<p>通过 Chrome 自带的开发者工具-&gt;Network 进行http抓包分析</p>
+<ol>
+<li>首先找到价格数据，价格数据中一定有238</li>
+<li>搜索所有请求到的资源，查看哪些有238</li>
+<li>找到对应的请求</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114131939821.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114131939821.png" alt="image-20210114131939821"></a></p>
+<h2 id="请求分析"><a href="#请求分析" class="headerlink" title="请求分析"></a>请求分析</h2><p>通过查看 <code>Requests Headers</code> 的头部信息，发现这是一个POST请求，只要把参数填入 <code>From data</code>即可。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114132139111.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114132139111.png" alt="image-20210114132139111"></a></p>
+<ul>
+<li><p>请求地址：<a target="_blank" rel="noopener" href="http://tool.manmanbuy.com/api.ashx">http://tool.manmanbuy.com/api.ashx</a></p>
+</li>
+<li><p>请求方式：POST</p>
+</li>
+<li><p>请求数据：</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>method</td>
+<td>getHistoryTrend</td>
+<td>固定不变</td>
+</tr>
+<tr>
+<td>key</td>
+<td><a target="_blank" rel="noopener" href="https://item.jd.com/6290488.html">https://item.jd.com/6290488.html</a></td>
+<td>原商品链接（变）</td>
+</tr>
+<tr>
+<td>t</td>
+<td>1610601399358</td>
+<td>时间戳（变）</td>
+</tr>
+<tr>
+<td>token</td>
+<td>DAF418E3848F4B4BB1C8CA6F23AD331D</td>
+<td>token （变）</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>请求报文分析</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Accept: */*  # 接收所有类型的数据</span><br><span class="line">Accept-Encoding: gzip, deflate # 接收编码方式</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7 # 接收语言</span><br><span class="line">Authorization: BasicAuth D8DD2812A942776AF9ED750C2D6D7539BF204F7C0B0FB414E6CEBD28536A99D07304FA7BFFBB2BDD6B9B46823A9D19FA751316693F17DD79FF26D70E2EBA1BF31918AB09FC305FCFB80352187AE32269B8D8DB1977F84F1E # Basic 身份验证</span><br><span class="line">Content-Length: 122 # 内容长度</span><br><span class="line">Content-Type: application/x-www-form-urlencoded; charset=UTF-8 # 报文主体的类型：通过 x-www-form-urlencoded 提交主体</span><br><span class="line">Cookie: _ga=GA1.2.614520810.1610543725; _gid=GA1.2.187844233.1610543725; Hm_lvt_85f48cee3e51cd48eaba80781b243db3=1608561378,1608561379,1610539536,1610594558; ASP.NET_SessionId=oyiwn2k5xvhc2d5s3owcy4ma; radius=115.174.219.229; uudid=cms4cfa3810-b108-a48c-1a2f-eb4c72b23256; Hm_lvt_01a310dc95b71311522403c3237671ae=1608561378,1610539536,1610595007,1610595218; Hm_lpvt_85f48cee3e51cd48eaba80781b243db3=1610601329; Hm_lpvt_01a310dc95b71311522403c3237671ae=1610601329 # Cookie </span><br><span class="line">Host: tool.manmanbuy.com # 主机地址</span><br><span class="line">Origin: http://tool.manmanbuy.com # Origin</span><br><span class="line">Proxy-Connection: keep-alive # 持续连接</span><br><span class="line">Referer: http://tool.manmanbuy.com/historyLowest.aspx?url=https%3A//item.jd.com/6290488.html # 是从哪个地址请求来的</span><br><span class="line">User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36 # User-Agent</span><br><span class="line">X-Requested-With: XMLHttpRequest</span><br></pre></td></tr></table></figure>
+
+<p>其中比较重要的是 Cookie 和 Authorization。</p>
+</li>
+</ul>
+<h2 id="寻找变动的字段"><a href="#寻找变动的字段" class="headerlink" title="寻找变动的字段"></a>寻找变动的字段</h2><p>通过多次请求，比较每次请求时候变动的请求头，这样才能知道哪些字段要去重点研究攻克。可以通过 代码比较工具去分析每次变动的字段。</p>
+<p>这里比较两个部分</p>
+<ul>
+<li>请求头提交的数据</li>
+<li>请求头报文</li>
+</ul>
+<blockquote>
+<p>工具：<a target="_blank" rel="noopener" href="https://www.matools.com/compare">在线代码对比/归并</a></p>
+</blockquote>
+<h3 id="请求头提交的数据-Form-data"><a href="#请求头提交的数据-Form-data" class="headerlink" title="请求头提交的数据 (Form data)"></a>请求头提交的数据 (Form data)</h3><p>method 是固定的，key，t 分别是商品地址和时间戳。</p>
+<p><strong>难点是 token 字段的生成方式</strong></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114134237228.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114134237228.png" alt="image-20210114134237228"></a></p>
+<h3 id="请求头报文-Request-Header"><a href="#请求头报文-Request-Header" class="headerlink" title="请求头报文(Request Header)"></a>请求头报文(Request Header)</h3><p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114134630360.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114134630360.png" alt="image-20210114134630360"></a></p>
+<p>请求头中 Authorization 代表的是 Web端 对访问用户身份的认证，这个知识点，在 <a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/pages/8e336c">08.确认访问用户身份的认证</a> 已经写过，Basic Auth 属于一种基本的认证方式，本质上就是通过 Base64 对账户密码进行编码后传输，编码可以通过Base64 反编码，所以本质上就是一种明文的传输方式。所以，我们可以尝试反编译一下。</p>
+<h4 id="反编译-Authorization"><a href="#反编译-Authorization" class="headerlink" title="反编译 Authorization"></a>反编译 Authorization</h4><h4 id="1-Python-实现-Base64-编码-解码"><a href="#1-Python-实现-Base64-编码-解码" class="headerlink" title="1. Python 实现 Base64 编码/解码"></a>1. Python 实现 Base64 编码/解码</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import base64</span><br><span class="line"></span><br><span class="line">def get_basic_auth_str(username, password):</span><br><span class="line">  temp_str = username + &#x27;:&#x27; + password</span><br><span class="line">  bytesString = temp_str.encode(encoding=&quot;utf-8&quot;)  # 转成bytes string</span><br><span class="line">  encodestr = base64.b64encode(bytesString)  # base64 编码</span><br><span class="line">  return &#x27;Basic &#x27; + encodestr.decode() </span><br><span class="line"></span><br><span class="line">def decode_basic_auth_str(auth_str):</span><br><span class="line">    bytesString = auth_str.encode(&quot;utf-8&quot;)</span><br><span class="line">    decode_str = base64.b64decode(bytesString)</span><br><span class="line">    return decode_str.decode(&quot;utf-8&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    auth_str = get_basic_auth_str(&#x27;Tom&#x27;, &#x27;test&#x27;) # Basic VG9tOnRlc3Q=</span><br><span class="line">    decode_str = decode_basic_auth_str(&#x27;VG9tOnRlc3Q=&#x27;) # Tom:test</span><br></pre></td></tr></table></figure>
+
+<p>尝试通过 Base64 去反编译加密后的字符串，发现解析错误。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from util import decode_basic_auth_str                                                                          </span><br><span class="line">&gt;&gt;&gt; decode_basic_auth_str(&#x27;D8DD2812A942776AF9ED750C2D6D7539BF204F7C0B0FB414E6CEBD28536A99D07304FA7BFFBB2BDD6B9B46823A9D19FA751316693F17DD79FF26D70E2EBA1BF31918AB09FC305FCFF5CC0120F0A255CA5D37BDC0EBFFB3CD&#x27;)   </span><br><span class="line">&gt;&gt;&gt; UnicodeDecodeError: &#x27;utf-8&#x27; codec can&#x27;t decode byte 0xc0 in position 1: invalid start byte</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-在线Base编码-解码网站"><a href="#2-在线Base编码-解码网站" class="headerlink" title="2. 在线Base编码/解码网站"></a>2. 在线Base编码/解码网站</h4><p>通过在线编码解码网站也是发现全部都是乱码</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114142147404.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114142147404.png" alt="image-20210114142147404"></a></p>
+<h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><p>经过代码比较后，我们发现有两个字段无法解决</p>
+<ul>
+<li>Authorization 不是通过传统的 Basic64 加密的</li>
+<li>token</li>
+</ul>
+<h2 id="JS代码分析"><a href="#JS代码分析" class="headerlink" title="JS代码分析"></a>JS代码分析</h2><p>知道了目标，就可以查看具体发送请求的地方，以及 Authorization 和 token 生成的逻辑。</p>
+<p>首先，查看 <code>/api.aspx</code> 是哪里发送出来的</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114145805844.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114145805844.png" alt="image-20210114145805844"></a></p>
+<p>然后，可以通过打上断点，查找发送数据的代码。但是这里并不是拼接数据的地方。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114150248508.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114150248508.png" alt="image-20210114150248508"></a></p>
+<p>在 Call Stack 调用栈中，不断的向上排查，最终找到拼接数据的地方，可以看出 ajaxpost 这里是真正拼接数据的地方。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114150718545.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114150718545.png" alt="image-20210114150718545"></a></p>
+<p>在调试中，找到了 <code>form data</code> 的数据</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114151327739.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114151327739.png" alt="image-20210114151327739"></a></p>
+<p>找到了数据后，才发现真正难的地方，这里的 JavaScript 代码都是经过加密的，由于不知道函数和变量的含义，去破解 token 和 Authorization 字段无从下手。</p>
+<p>如这段代码，变量名都是通过 <code>_0x365d()</code> 函数，加密过了，只要我们破解这个函数即可还原。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x27;success&#x27;: function(_0x4ce40a) &#123;</span><br><span class="line">    var _0x1c6814 = &#123;</span><br><span class="line">      &#x27;LrBHV&#x27;: _0x365d(&#x27;0x2e&#x27;, &#x27;OG@1&#x27;),</span><br><span class="line">      &#x27;nyVkE&#x27;: _0x365d(&#x27;0x2f&#x27;, &#x27;[0Fm&#x27;),</span><br><span class="line">      &#x27;qsLdn&#x27;: function _0x23683a(_0x46f029, _0x5eba10) &#123;</span><br><span class="line">        return _0x46f029(_0x5eba10);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    if (_0x365d(&#x27;0x30&#x27;, &#x27;BQd]&#x27;) !== _0x1c6814[_0x365d(&#x27;0x31&#x27;, &#x27;OG@1&#x27;)]) &#123;</span><br><span class="line">      w[c](_0x1c6814[_0x365d(&#x27;0x32&#x27;, &#x27;b8bF&#x27;)]);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      _0x3aca29 &amp;&amp; _0x1c6814[_0x365d(&#x27;0x33&#x27;, &#x27;xOX6&#x27;)](_0x3aca29, _0x4ce40a);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面我们看看这段加密代码，发现有70多行，手动破解太费劲了。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114152610556.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114152610556.png" alt="image-20210114152610556"></a></p>
+<p>而且通过 <code>encode_version</code> 发现，这是使用 jsjiami.com 做的加密。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/assets/img/image-20210114152900610.png"><img src="https://github.com/PPsteven/manmanbuy_js_crack/raw/master/assets/img/image-20210114152900610.png" alt="image-20210114152900610"></a></p>
+<p>首先，要先把 js 代码调试出来</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var window = undefined; // 因为 node.js 没有 window，可以先至为 undefined</span><br><span class="line">var encode_version = &#x27;jsjiami.com.v5&#x27;,</span><br><span class="line">	nljdj = &#x27;__0xa3e63&#x27;,</span><br><span class="line">	__0xa3e63 = [&#x27;TURrcMKg&#x27;, &#x27;bMKywoIHdw==&#x27;, ...];</span><br><span class="line">(function (_0x58a45a, _0x50ac96) &#123;...&#125;(__0xa3e63, 0x1dc));</span><br><span class="line">var _0x365d = function (_0x5ce1df, _0x37ef48) &#123;...&#125;;</span><br><span class="line">                                               </span><br><span class="line">console.log(_0x365d(&#x27;0x22&#x27;, &#x27;G7RY&#x27;)) //  输出 BasicAuth                                   </span><br></pre></td></tr></table></figure>
+
+<p>这里使用 <code>execjs</code> 和 正则表达式 去解析 JavaScript 文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import re, execjs</span><br><span class="line"></span><br><span class="line">def callJsFunc(s, func=&quot;&quot;):</span><br><span class="line">    &quot;&quot;&quot; 调用 js 函数&quot;&quot;&quot;</span><br><span class="line">    v1, v2 = s.group(1), s.group(2)</span><br><span class="line">    return &quot;&#x27;&#123;&#125;&#x27;&quot;.format(ctx.eval(&#x27;_0x365d(%s, %s)&#x27; %(v1, v2)))</span><br><span class="line"></span><br><span class="line"># 加密的 js 文件</span><br><span class="line">with open(&quot;customRequest.js&quot;, &quot;r&quot;, encoding=&quot;utf-8&quot;) as fr:</span><br><span class="line">    raw_code = fr.read()</span><br><span class="line">    ctx = execjs.compile(raw_code)</span><br><span class="line"># 正则匹配出，两个输入参数</span><br><span class="line">pattern = re.compile(r&quot;_0x365d\((&#x27;.*?&#x27;), (&#x27;.*?&#x27;)\)&quot;, re.S)</span><br><span class="line">trans_code = re.sub(pattern, callJsFunc, raw_code)</span><br><span class="line"></span><br><span class="line"># 输出解密文件</span><br><span class="line">with open(&#x27;customRequest_trans.js&#x27;, &#x27;w&#x27;, encoding=&quot;utf-8&quot;) as fw:</span><br><span class="line">    fw.write(trans_code)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>原 JavaScript 文件：<a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/customRequest.js">https://github.com/PPsteven/manmanbuy_js_crack/blob/master/customRequest.js</a></p>
+<p>破解后的 JavaScript 文件：<a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack/blob/master/customRequest_trans_%E8%BD%AC%E7%A0%81.js">https://github.com/PPsteven/manmanbuy_js_crack/blob/master/customRequest_trans_%E8%BD%AC%E7%A0%81.js</a></p>
+</blockquote>
+<h2 id="token-参数还原"><a href="#token-参数还原" class="headerlink" title="token 参数还原"></a>token 参数还原</h2><p>翻译的 JavaScript 代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">&#x27;getNewParam&#x27;: function (_0x182946) &#123; // 令 _0x182946 为 item</span><br><span class="line">        var _0x6318d4 = &#123;</span><br><span class="line">            &#x27;XMcLK&#x27;: function _0x53fadd(_0x53992b, _0x1be977) &#123; </span><br><span class="line">                return _0x53992b !== _0x1be977;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#x27;DCftw&#x27;: &#x27;QyP&#x27;,</span><br><span class="line">            &#x27;rzOuq&#x27;: &#x27;WgI&#x27;,</span><br><span class="line">            &#x27;NpXrl&#x27;: function _0x1baebf(_0x37086b, _0x2b1ab6) &#123; // 不等于</span><br><span class="line">                return _0x37086b != _0x2b1ab6;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#x27;XAMWs&#x27;: function _0x3d56be(_0x2aa348, _0x2f1927) &#123; // 不等于</span><br><span class="line">                return _0x2aa348 != _0x2f1927;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#x27;coWgu&#x27;: function _0x384c4f(_0x34042d, _0x166417) &#123; // 相加</span><br><span class="line">                return _0x34042d + _0x166417;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#x27;MDcDl&#x27;: function _0x353cf4(_0x1134d4, _0xcc855d) &#123; // 函数调用</span><br><span class="line">                return _0x1134d4(_0xcc855d);</span><br><span class="line">            &#125;,</span><br><span class="line">            &#x27;cOInn&#x27;: function _0x1e4877(_0x532487, _0x49bb94) &#123; // 相加</span><br><span class="line">                return _0x532487 + _0x49bb94;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        that = this; </span><br><span class="line">        _0x182946[&#x27;t&#x27;] = new Date()[&#x27;valueOf&#x27;](); // 获取当前时间戳: item[&#x27;t&#x27;] = 1608129001120</span><br><span class="line">        let _0x1a4f89 = Object[&#x27;keys&#x27;](_0x182946)[&#x27;sort&#x27;](); // 按照 key 排序: keys = item[&#x27;keys&#x27;].sort()</span><br><span class="line">        let _0x3a63ba = &#123;&#125;;</span><br><span class="line">        _0x1a4f89[&#x27;forEach&#x27;](_0x138605 =&gt; &#123;</span><br><span class="line">            var _0x50fa23 = &#123; // 无意义</span><br><span class="line">                &#x27;XImOu&#x27;: function _0xd5995c(_0x950655, _0x4002ed) &#123;</span><br><span class="line">                    return _0x950655 !== _0x4002ed;</span><br><span class="line">                &#125;,</span><br><span class="line">                &#x27;vsytw&#x27;: &#x27;KaZ&#x27;</span><br><span class="line">            &#125;;</span><br><span class="line">            if (_0x50fa23[&#x27;XImOu&#x27;](_0x50fa23[&#x27;vsytw&#x27;], _0x50fa23[&#x27;vsytw&#x27;])) &#123; &#125; else &#123; </span><br><span class="line">                  // 一定是False, 执行本行</span><br><span class="line">                _0x3a63ba[_0x138605] = _0x182946[_0x138605]; // _0x182946 按照 key 依次赋值到 _0x3a63ba；令 _0x3a63ba 为 newItem</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">  			// forEach(key =&gt; keys) &#123;</span><br><span class="line">  			//		newItem[key] = item[key]</span><br><span class="line">        // &#125;</span><br><span class="line">        var _0x4547db = that[&#x27;secret&#x27;];</span><br><span class="line">        for (let _0x3c07c9 in _0x3a63ba) &#123;</span><br><span class="line">            if (_0x6318d4[&#x27;XMcLK&#x27;](&#x27;QyP&#x27;, &#x27;WgI&#x27;)) &#123; // 一定是True</span><br><span class="line">                // if data[key] != null &amp;&amp; data[key] != &#x27;&#x27;</span><br><span class="line">                if (_0x6318d4[&#x27;NpXrl&#x27;](_0x3a63ba[_0x3c07c9], null) &amp;&amp; _0x6318d4[&#x27;XAMWs&#x27;](_0x3a63ba[_0x3c07c9], &#x27;&#x27;)) &#123; </span><br><span class="line">                    // secret += urlencode(key) + urlencode(data[key])</span><br><span class="line">                    _0x4547db += _0x6318d4[&#x27;coWgu&#x27;](_0x6318d4[&#x27;MDcDl&#x27;](encodeURIComponent, _0x3c07c9), encodeURIComponent(_0x3a63ba[_0x3c07c9])); </span><br><span class="line">                &#125;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                date = _0x6318d4[&#x27;cOInn&#x27;](&#x27;0&#x27;, date);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        _0x4547db += that[&#x27;secret&#x27;]; // data += that[&#x27;secret&#x27;]</span><br><span class="line">        _0x4547db = _0x4547db[&#x27;toUpperCase&#x27;](); // data.toUpperCase()</span><br><span class="line">        var _0x20fdfc = hex_md5(_0x4547db)[&#x27;toUpperCase&#x27;](); // hex_md5(data)</span><br><span class="line">        _0x182946[&#x27;token&#x27;] = _0x20fdfc;</span><br><span class="line">        return _0x182946;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面是翻译的 Python 代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">from urllib.parse import quote</span><br><span class="line">import hashlib</span><br><span class="line">import collections</span><br><span class="line"></span><br><span class="line">post_data = &#123;</span><br><span class="line">    &#x27;method&#x27;: &#x27;getHistoryTrend&#x27;,</span><br><span class="line">    &#x27;key&#x27;: &#x27;http://item.jd.hk/10429555538.html&#x27;,</span><br><span class="line">    &#x27;t&#x27;: str(int(time.time() * 100000))[:13] # 13 位时间戳</span><br><span class="line">&#125;</span><br><span class="line">post_data = collections.OrderedDict( # 按照 key 排序</span><br><span class="line">    sorted(post_data.items(),</span><br><span class="line">           key=lambda x: x[0])</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">secret = &#x27;c5c3f201a8e8fc634d37a766a0299218&#x27; # secret 不变</span><br><span class="line">token = secret</span><br><span class="line">for k, v in post_data.items():</span><br><span class="line">    token += quote(k, safe=&#x27;&#x27;) + quote(v, safe=&#x27;&#x27;) # Python 默认不转义 //,这个必须删掉</span><br><span class="line">token += secret</span><br><span class="line">token = token.upper() # 转成大写</span><br><span class="line">m = hashlib.md5()</span><br><span class="line">m.update(token.encode(&#x27;utf-8&#x27;)) # 生成 md5 码</span><br><span class="line">token = m.hexdigest().upper()</span><br><span class="line">post_data[&#x27;token&#x27;] = token # 添加 token </span><br><span class="line">print(post_data)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Authorization-破解"><a href="#Authorization-破解" class="headerlink" title="Authorization 破解"></a>Authorization 破解</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x27;beforeSend&#x27;: function(_0x59ca01) &#123;</span><br><span class="line">				var _0x467e2a = &#123;</span><br><span class="line">					&#x27;CZYVH&#x27;: &#x27;vBP&#x27;,</span><br><span class="line">					&#x27;suyCt&#x27;: &#x27;Authorization&#x27;,</span><br><span class="line">					&#x27;bLTRm&#x27;: function _0x40c0f6(_0x326d84, _0xc7d8fa) &#123;</span><br><span class="line">						return _0x326d84 + _0xc7d8fa;</span><br><span class="line">					&#125;,</span><br><span class="line">					&#x27;HCGmF&#x27;: &#x27;BasicAuth &#x27;</span><br><span class="line">				&#125;;</span><br><span class="line">				if (_0x467e2a[&#x27;CZYVH&#x27;] === _0x467e2a[&#x27;CZYVH&#x27;]) &#123;</span><br><span class="line">           // 一定执行本行</span><br><span class="line">					_0x59ca01[&#x27;setRequestHeader&#x27;](_0x467e2a[&#x27;suyCt&#x27;], _0x467e2a[&#x27;bLTRm&#x27;](_0x467e2a[&#x27;HCGmF&#x27;], _0x1901a2[&#x27;getTicket&#x27;]()));</span><br><span class="line">					// _0x59ca01[&#x27;setRequestHeader&#x27;](&#x27;Authorization&#x27;, &#x27;BasicAuth &#x27; + this.getTicket())</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">					_0x59ca01[&#x27;setRequestHeader&#x27;](_0x467e2a[&#x27;suyCt&#x27;], _0x467e2a[&#x27;bLTRm&#x27;](_0x467e2a[&#x27;HCGmF&#x27;], _0x1901a2[&#x27;getTicket&#x27;]()));</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br></pre></td></tr></table></figure>
+
+<p>getTicket 函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">  ... </span><br><span class="line">  &#x27;secret&#x27;: &#x27;c5c3f201a8e8fc634d37a766a0299218&#x27;,</span><br><span class="line"> &#x27;getTicket&#x27;: function() &#123;</span><br><span class="line">	var _0x3bc08f = &#123;</span><br><span class="line">		&#x27;ipeUV&#x27;: function _0x5ef1ae(_0x41239c, _0x1e50a1) &#123; // a(b)</span><br><span class="line">			return _0x41239c(_0x1e50a1);</span><br><span class="line">		&#125;,</span><br><span class="line">		&#x27;ZadZx&#x27;: function _0x13f13f(_0x34a3cb, _0x22d7b9) &#123; // a &gt; b</span><br><span class="line">			return _0x34a3cb &gt; _0x22d7b9;</span><br><span class="line">		&#125;,</span><br><span class="line">		&#x27;XDmmn&#x27;: function _0x5cd9f2(_0x47ada5, _0x170387) &#123; // a + b </span><br><span class="line">			return _0x47ada5 + _0x170387;</span><br><span class="line">		&#125;,</span><br><span class="line">		&#x27;HxAAK&#x27;: function _0x18276a(_0x1835fa, _0x2d0f0b) &#123; // a - b </span><br><span class="line">			return _0x1835fa - _0x2d0f0b;</span><br><span class="line">		&#125;,</span><br><span class="line">		&#x27;DLUkx&#x27;: function _0x149149(_0x200e47, _0x1da274) &#123; // a - b</span><br><span class="line">			return _0x200e47 - _0x1da274;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">	var _0x3f166f = _0x3bc08f[&#x27;ipeUV&#x27;]($, &#x27;#ticket&#x27;)[&#x27;val&#x27;](); // ticket = $(#ticket).val</span><br><span class="line">	if (_0x3bc08f[&#x27;ZadZx&#x27;](_0x3f166f[&#x27;length&#x27;], 0x4)) &#123;  // if len(ticket) &gt; 4 </span><br><span class="line">      // ticket = substr[lenght(ticket) - 4, 4] + substr[0, length(ticket) - 4 ]</span><br><span class="line">		_0x3f166f = _0x3bc08f[&#x27;XDmmn&#x27;](_0x3f166f[&#x27;substr&#x27;](_0x3bc08f[&#x27;HxAAK&#x27;](_0x3f166f[&#x27;length&#x27;], 0x4), 0x4), _0x3f166f[&#x27;substring&#x27;](0x0, _0x3bc08f[&#x27;DLUkx&#x27;](_0x3f166f[&#x27;length&#x27;], 0x4)));</span><br><span class="line">	&#125;</span><br><span class="line">	return _0x3f166f;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码就很简单</p>
+<ul>
+<li>首先从 <a target="_blank" rel="noopener" href="http://tool.manmanbuy.com/HistoryLowest.aspx">http://tool.manmanbuy.com/HistoryLowest.aspx</a> 获取 <code>#ticket</code> 元素的值</li>
+<li>ticket 向右循环4个字母，即abcdefgh 变成 efghabcd</li>
+</ul>
+<p>Python 翻译代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def create_auth():</span><br><span class="line">    req = requests.get(&#x27;http://tool.manmanbuy.com/HistoryLowest.aspx&#x27;)</span><br><span class="line">    if req.status_code == 200:</span><br><span class="line">        history_price_html = req.text</span><br><span class="line">        searchRet = re.search(r&#x27;id=&quot;ticket&quot;.+value=&quot;(?P&lt;value&gt;.+)&quot;&#x27;, history_price_html)</span><br><span class="line">        if not searchRet:</span><br><span class="line">            return &#x27;&#x27;</span><br><span class="line">        ticket = searchRet.group(&#x27;value&#x27;)</span><br><span class="line"></span><br><span class="line">        return &#x27;BasicAuth &#x27; + ticket[-4:] + ticket[:-4]</span><br><span class="line">    return &#x27;&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Github-仓库"><a href="#Github-仓库" class="headerlink" title="Github 仓库"></a>Github 仓库</h2><p><a target="_blank" rel="noopener" href="https://github.com/PPsteven/manmanbuy_js_crack">manmanbuy_js_crack</a></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://www.myitmx.com/96.html">某 JS 加密逆向还原简单分析</a></p>
+<p>文章转自：<a target="_blank" rel="noopener" href="https://ppsteven.github.io/pages/cb409c/#authorization-%E7%A0%B4%E8%A7%A3">慢慢买比价爬虫(JS 逆向破解) | 软微9133 (ppsteven.github.io)</a></p>
+
+	  <div class="article-footer-copyright">
+
+    本博客采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议(CC BY-NC-SA 4.0) 发布.</a>
+</div>
+
+	</div>
+
+	
+	<span id="/2021/06/29/%E6%85%A2%E6%85%A2%E4%B9%B0%E6%8E%A5%E5%8F%A3%E9%80%86%E5%90%91/" class="leancloud-visitors view" data-flag-title="慢慢买接口逆向">
+		<em class="post-meta-item-text"> Page View </em> <i class="leancloud-visitors-count"></i>
+	</span>
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2021/06/28/2021-06-28/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    
+</section>
+
+-->
+	
+		<section id="comments" class="comments">
+			<style>
+			.comments{margin:30px;padding:10px;background:rgb(0, 0, 0)}
+			@media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#000}}
+			</style>
+			<div id="vcomment" class="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+var valineConfig = {"enable":true,"appId":"r4JnhWDHnAkpVuaNKYAjM4rG-MdYXbMMI","appKey":"V82g09a4cwRrbvD1eTpo6SVt","placeholder":"提交评论时留下邮箱收到回复后将自动通知","visitor":true,"avatar":"monsterid","requiredFields":["nick","mail"]}
+valineConfig.el='#vcomment';
+new Valine(valineConfig);
+    // new Valine({
+    //     el: '#vcomment',
+    //     appId: "",
+    //     appKey: "",
+    //     placeholder: "提交评论时留下邮箱收到回复后将自动通知",
+    //     avatar:"monsterid",
+    //     visitor: "true",
+    //     requiredFields: "nick,mail".split(','),
+    // });
+</script>
+
+		</section>
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2021-06-29 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/js逆向/">js逆向<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+		
+
+	</div>
+	
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2021 喜欢你的秃酱's Blog
+  
+      powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.Theme <a href="https://github.com/Ares-X/hexo-theme-freemind.bithack" target="_blank">freemind.bithack</a>  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
